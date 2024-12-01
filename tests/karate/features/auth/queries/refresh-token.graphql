@@ -1,0 +1,12 @@
+mutation refreshToken($refreshToken: String!) {
+  refreshToken(token: $refreshToken) {
+    accessToken
+    refreshToken
+    expiresIn
+    tokenType
+    error {
+      code
+      message
+    }
+  }
+}

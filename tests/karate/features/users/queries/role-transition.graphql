@@ -1,0 +1,26 @@
+mutation initiateRoleTransition($input: RoleTransitionInput!) {
+  initiateRoleTransition(input: $input) {
+    success
+    transitionId
+    fromRole
+    toRole
+    status
+    requirements {
+      id
+      type
+      status
+      required
+      completed
+    }
+    verificationStatus
+    nextSteps {
+      step
+      description
+      required
+    }
+    error {
+      code
+      message
+    }
+  }
+}

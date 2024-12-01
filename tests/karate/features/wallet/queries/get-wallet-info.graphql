@@ -1,0 +1,25 @@
+query getWalletInfo($walletId: ID!) {
+  wallet(id: $walletId) {
+    id
+    address
+    chainType
+    balance
+    isVerified
+    isPrimary
+    status
+    createdAt
+    lastActivityAt
+    transactions {
+      id
+      type
+      amount
+      timestamp
+      status
+    }
+    verificationDetails {
+      verifiedAt
+      verifiedBy
+      method
+    }
+  }
+}

@@ -1,0 +1,20 @@
+query validateChainType($chainType: ChainType!) {
+  validateChainType(chainType: $chainType) {
+    isValid
+    chainDetails {
+      name
+      networkId
+      isTestnet
+      features
+    }
+    supportedOperations {
+      type
+      enabled
+      restrictions
+    }
+    validationRules {
+      addressFormat
+      requirements
+    }
+  }
+}

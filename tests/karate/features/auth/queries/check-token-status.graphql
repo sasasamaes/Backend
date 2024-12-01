@@ -1,0 +1,16 @@
+query checkTokenStatus {
+  tokenStatus {
+    isValid
+    expiresIn
+    issuedAt
+    claims {
+      sub
+      email
+      roles
+    }
+    error {
+      code
+      message
+    }
+  }
+}

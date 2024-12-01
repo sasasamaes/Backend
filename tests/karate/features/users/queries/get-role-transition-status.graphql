@@ -1,0 +1,24 @@
+query getRoleTransitionStatus($transitionId: ID!) {
+  roleTransitionStatus(transitionId: $transitionId) {
+    id
+    fromRole
+    toRole
+    currentStatus
+    initiatedAt
+    completedAt
+    requirements {
+      type
+      status
+      completedAt
+      verifiedBy {
+        id
+        email
+      }
+    }
+    history {
+      status
+      timestamp
+      note
+    }
+  }
+}

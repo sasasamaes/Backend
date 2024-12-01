@@ -1,0 +1,33 @@
+query verifyTenantRole {
+  currentUser {
+    id
+    email
+    roles
+    tenantProfile {
+      id
+      status
+      verificationStatus
+      leaseAgreements {
+        id
+        status
+        startDate
+        endDate
+        property {
+          id
+          address
+        }
+      }
+      verificationDocuments {
+        id
+        type
+        status
+        uploadedAt
+      }
+    }
+    permissions {
+      resource
+      actions
+      conditions
+    }
+  }
+}

@@ -1,0 +1,9 @@
+mutation revokeToken($token: String!) {
+  revokeToken(token: $token) {
+    success
+    error {
+      code
+      message
+    }
+  }
+}

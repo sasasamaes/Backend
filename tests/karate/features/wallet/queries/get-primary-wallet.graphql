@@ -1,0 +1,18 @@
+query getPrimaryWallet {
+  primaryWallet {
+    id
+    address
+    chainType
+    balance
+    isVerified
+    isPrimary
+    lastActivityAt
+    assignedAsPrimaryAt
+    previousPrimaryWallets {
+      id
+      address
+      endedAsPrimaryAt
+      reason
+    }
+  }
+}

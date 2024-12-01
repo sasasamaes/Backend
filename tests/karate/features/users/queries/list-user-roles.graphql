@@ -1,0 +1,20 @@
+query getUserRoles {
+  currentUser {
+    id
+    email
+    roles {
+      name
+      permissions {
+        resource
+        actions
+      }
+      assignedAt
+      status
+    }
+    effectivePermissions {
+      resource
+      actions
+      conditions
+    }
+  }
+}

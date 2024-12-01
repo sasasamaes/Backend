@@ -1,0 +1,17 @@
+mutation setPrimaryWallet($walletId: ID!) {
+  setPrimaryWallet(walletId: $walletId) {
+    success
+    previousPrimary {
+      id
+      endedAsPrimaryAt
+    }
+    newPrimary {
+      id
+      assignedAsPrimaryAt
+    }
+    error {
+      code
+      message
+    }
+  }
+}

@@ -1,16 +1,48 @@
 function fn() {
-  var env = karate.env || 'dev';
-  var config = {
-      env: env,
-      HASURA_ENDPOINT: java.lang.System.getenv('HASURA_ENDPOINT'),
-      HASURA_ADMIN_SECRET: java.lang.System.getenv('HASURA_ADMIN_SECRET'),
-      FIREBASE_API_KEY: java.lang.System.getenv('FIREBASE_API_KEY')
+  karate.configure('connectTimeout', 30000);
+  karate.configure('readTimeout', 30000);
+
+  // Configuración base
+  const config = {
+    baseUrl: 'http://localhost:8080/v1/graphql',
+    adminSecret: karate.properties['HASURA_ADMIN_SECRET'] || '',
+    firebaseApiKey: karate.properties['FIREBASE_API_KEY'] || '',
+    
+    // Headers por defecto para GraphQL
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Hasura-Admin-Secret': karate.properties['HASURA_ADMIN_SECRET'] || ''
+    }
   };
-  
-  if (env == 'dev') {
-      config.tenant_token = 'test-tenant-token';
-      config.landlord_token = 'test-landlord-token';
-  }
-  
+
+  // Función de utilidad para leer archivos de consultas GraphQL
+  const loadQuery = (filePath) => {
+    const file = karate.read('classpath:' + filePath);
+    return file.replace(/\s+/g, ' ').trim();
+  };
+
+  // Agregar función de utilidad al config
+  config.loadQuery = loadQuery;
+
+  // Función helper para autenticación
+  config.auth = {
+    getAuthHeader: function(token) {
+      return { 'Authorization': 'Bearer ' + token };
+    }
+  };
+
+  // Helper para manejar respuestas GraphQL
+  config.handleResponse = function(response) {
+    if (response.errors) {
+      karate.log('GraphQL Error:', response.errors);
+      return false;
+    }
+    return true;
+  };
+
+  // Helper para cargar schemas
+  const schemas = karate.read('classpath:helpers/schemas.js');
+  config.schemas = schemas;
+
   return config;
 }

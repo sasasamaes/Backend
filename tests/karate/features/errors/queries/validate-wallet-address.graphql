@@ -1,0 +1,15 @@
+query testInvalidWalletAddress($address: String!, $chainType: ChainType!) {
+  validateWallet(address: $address, chainType: $chainType) {
+    isValid
+    errors {
+      code
+      message
+      details
+    }
+    validation {
+      formatValid
+      checksumValid
+      chainTypeValid
+    }
+  }
+}

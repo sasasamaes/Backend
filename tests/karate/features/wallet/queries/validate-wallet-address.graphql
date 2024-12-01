@@ -1,0 +1,22 @@
+query validateWalletAddress($address: String!, $chainType: ChainType!) {
+  validateWalletAddress(address: $address, chainType: $chainType) {
+    isValid
+    exists
+    chainValidation {
+      isValidFormat
+      checksumValid
+    }
+    existingWallet {
+      id
+      owner {
+        id
+        email
+      }
+      createdAt
+    }
+    error {
+      code
+      message
+    }
+  }
+}

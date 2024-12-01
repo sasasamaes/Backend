@@ -1,40 +1,22 @@
-Feature: User Queries
+Feature: User Query Tests
+    Test user information retrieval and management
 
 Background:
-  * url HASURA_ENDPOINT
-  * def getUserWalletsQuery = read('queries/get-user-wallets.graphql')
-  * def testUserId = '123e4567-e89b-12d3-a456-426614174000'
+    * url baseUrl
+    * headers headers
+    * call read('../auth/login.feature@login')
+    * def authToken = response.data.loginWithFirebase.accessToken
 
-Scenario: Query User Wallets Successfully
-  Given path '/v1/graphql'
-  And header Authorization = 'Bearer ' + firebase_token
-  And header x-hasura-role = 'user'
-  And request 
-  """
-  {
-    "query": "#(getUserWalletsQuery)",
-    "variables": {
-      "userId": "#(testUserId)"
-    }
-  }
-  """
-  When method post
-  Then status 200
-  And match response.data.user_wallets[0] contains { is_primary: true }
-  And match response.errors == '#notpresent'
+Scenario: Get Current User
+    * def getCurrentUserQuery = read('queries/get-current-user.graphql')
+    Given request { query: '#(getCurrentUserQuery)' }
+    When method POST
+    Then status 200
+    And match response.data.currentUser contains { id: '#present', email: '#present' }
 
-Scenario: Query User Wallets with Invalid Token
-  Given path '/v1/graphql'
-  And header Authorization = 'Bearer invalid_token'
-  And request 
-  """
-  {
-    "query": "#(getUserWalletsQuery)",
-    "variables": {
-      "userId": "#(testUserId)"
-    }
-  }
-  """
-  When method post
-  Then status 200
-  And match response.errors[0].message contains 'invalid token'
+Scenario: List Users with Pagination
+    * def listUsersQuery = read('queries/list-users.graphql')
+    Given request { query: '#(listUsersQuery)', variables: { first: 10, after: null } }
+    When method POST
+    Then status 200
+    And match response.data.users.edges == '#[_ > 0]'

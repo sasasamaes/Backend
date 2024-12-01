@@ -1,0 +1,16 @@
+query verifySession {
+  currentSession {
+    isValid
+    expiresAt
+    lastActivity
+    device {
+      type
+      ip
+      userAgent
+    }
+    error {
+      code
+      message
+    }
+  }
+}

@@ -1,0 +1,19 @@
+mutation createWallet($input: CreateWalletInput!) {
+  createWallet(input: $input) {
+    success
+    wallet {
+      id
+      address
+      chainType
+      isPrimary
+    }
+    validationResults {
+      isValid
+      errors {
+        field
+        message
+        code
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+query testExpiredSession {
+  sessionCheck {
+    isValid
+    error {
+      code
+      message
+      expiredAt
+      renewalRequired
+    }
+    session {
+      lastActive
+      expiresAt
+    }
+  }
+}

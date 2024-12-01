@@ -1,0 +1,33 @@
+query verifyLandlordRole {
+  currentUser {
+    id
+    email
+    roles
+    landlordProfile {
+      id
+      status
+      verificationStatus
+      properties {
+        id
+        address
+        status
+        tenants {
+          id
+          email
+          leaseStatus
+        }
+      }
+      verificationDocuments {
+        id
+        type
+        status
+        uploadedAt
+      }
+    }
+    permissions {
+      resource
+      actions
+      conditions
+    }
+  }
+}

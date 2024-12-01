@@ -1,10 +1,17 @@
-query GetCurrentUser($userId: String!) {
-  users_by_pk(id: $userId) {
+query getCurrentUser {
+  currentUser {
     id
     email
     name
-    last_seen
-    created_at
-    updated_at
+    createdAt
+    updatedAt
+    profile {
+      firstName
+      lastName
+      phoneNumber
+      avatar
+    }
+    status
+    lastLogin
   }
 }

@@ -1,0 +1,17 @@
+mutation testErrorScenarios($input: ErrorTestInput!) {
+  testErrors(input: $input) {
+    success
+    errorType
+    error {
+      code
+      message
+      path
+      details
+    }
+    validationErrors {
+      field
+      message
+      constraints
+    }
+  }
+}

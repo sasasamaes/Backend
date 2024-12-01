@@ -1,0 +1,13 @@
+query checkPermissionBoundaries($resource: String!, $action: String!) {
+  permissionCheck(resource: $resource, action: $action) {
+    allowed
+    deniedReason
+    requiredRoles
+    currentRoles
+    permissionDetails {
+      resource
+      actions
+      conditions
+    }
+  }
+}

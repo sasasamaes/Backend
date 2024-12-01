@@ -1,0 +1,18 @@
+query validateJWT {
+  validateToken {
+    valid
+    claims {
+      sub
+      email
+      roles
+      permissions
+      exp
+      iat
+      iss
+    }
+    error {
+      code
+      message
+    }
+  }
+}

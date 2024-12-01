@@ -1,0 +1,19 @@
+query checkWalletUniqueness($address: String!, $chainType: ChainType!) {
+  checkWalletUniqueness(address: $address, chainType: $chainType) {
+    isUnique
+    existingWallets {
+      id
+      owner {
+        id
+        email
+      }
+      createdAt
+      status
+    }
+    conflictType
+    recommendations {
+      type
+      description
+    }
+  }
+}

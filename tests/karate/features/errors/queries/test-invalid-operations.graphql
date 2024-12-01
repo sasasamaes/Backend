@@ -1,0 +1,16 @@
+mutation testInvalidOperations($input: InvalidOperationInput!) {
+  testInvalidOperation(input: $input) {
+    success
+    error {
+      code
+      message
+      operation
+      allowedOperations
+      suggestions
+    }
+    validation {
+      passed
+      failedChecks
+    }
+  }
+}

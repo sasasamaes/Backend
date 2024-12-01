@@ -1,0 +1,17 @@
+query checkRoleEligibility($roleType: RoleType!) {
+  roleEligibility(roleType: $roleType) {
+    eligible
+    currentRole
+    targetRole
+    missingRequirements {
+      type
+      description
+      required
+    }
+    availableTransitions {
+      toRole
+      requirements
+      estimatedTime
+    }
+  }
+}

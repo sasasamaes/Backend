@@ -1,0 +1,7 @@
+query testMissingAuth {
+  currentUser {
+    id
+    email
+    roles
+  }
+}

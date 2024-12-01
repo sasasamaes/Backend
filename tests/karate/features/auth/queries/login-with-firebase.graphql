@@ -1,0 +1,16 @@
+mutation loginWithFirebase($firebaseToken: String!) {
+  loginWithFirebase(token: $firebaseToken) {
+    accessToken
+    refreshToken
+    user {
+      id
+      email
+      roles
+      lastLogin
+    }
+    error {
+      code
+      message
+    }
+  }
+}

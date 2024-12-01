@@ -1,0 +1,10 @@
+query testInvalidUser($userId: ID!) {
+  user(id: $userId) {
+    id
+    email
+    profile {
+      firstName
+      lastName
+    }
+  }
+}

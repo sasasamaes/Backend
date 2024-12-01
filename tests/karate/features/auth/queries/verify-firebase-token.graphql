@@ -1,0 +1,14 @@
+mutation verifyFirebaseToken($token: String!) {
+  verifyFirebaseToken(token: $token) {
+    valid
+    user {
+      id
+      email
+      roles
+    }
+    error {
+      code
+      message
+    }
+  }
+}

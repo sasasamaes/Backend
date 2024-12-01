@@ -5,6 +5,6 @@ services:
       - FIREBASE_API_KEY=${FIREBASE_API_KEY}
       - HASURA_ADMIN_SECRET=${HASURA_ADMIN_SECRET}
     volumes:
-      - ./:/karate/features
-      - ./results:/karate/results
+      - ./karate:/karate
+      - ./results:/results
     network_mode: "host"  # Esto permite acceder a los servicios que ya están corriendo

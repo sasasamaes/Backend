@@ -1,0 +1,16 @@
+query testRolePermissions($roleId: ID!, $resource: String!) {
+  checkRolePermissions(roleId: $roleId, resource: $resource) {
+    hasAccess
+    error {
+      code
+      message
+      requiredRoles
+      currentRoles
+    }
+    permissions {
+      allowed
+      denied
+      reason
+    }
+  }
+}

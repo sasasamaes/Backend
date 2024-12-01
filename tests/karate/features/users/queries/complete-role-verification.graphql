@@ -1,0 +1,21 @@
+mutation completeRoleVerification($input: RoleVerificationInput!) {
+  completeRoleVerification(input: $input) {
+    success
+    role
+    verificationStatus
+    documents {
+      id
+      type
+      status
+      verifiedAt
+    }
+    nextSteps {
+      required
+      description
+    }
+    error {
+      code
+      message
+    }
+  }
+}

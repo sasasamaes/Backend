@@ -1,0 +1,28 @@
+query checkRoleAccess($roleType: RoleType!, $resource: String!) {
+  roleAccess(roleType: $roleType, resource: $resource) {
+    allowed
+    role {
+      name
+      level
+      permissions {
+        resource
+        actions
+        conditions
+      }
+    }
+    accessDetails {
+      resource
+      allowedActions
+      restrictions {
+        type
+        description
+        condition
+      }
+    }
+    effectivePermissions {
+      resource
+      actions
+      inheritedFrom
+    }
+  }
+}

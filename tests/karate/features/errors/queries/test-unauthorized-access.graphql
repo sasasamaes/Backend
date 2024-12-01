@@ -1,0 +1,8 @@
+query testUnauthorizedAccess($resourceId: ID!) {
+  restrictedResource(id: $resourceId) {
+    id
+    name
+    sensitiveData
+    accessLevel
+  }
+}
