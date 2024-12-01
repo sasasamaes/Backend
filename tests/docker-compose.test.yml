@@ -1,10 +1,16 @@
 services:
   karate:
-    image: ptrthomas/karate-chrome
-    environment:
-      - FIREBASE_API_KEY=${FIREBASE_API_KEY}
-      - HASURA_ADMIN_SECRET=${HASURA_ADMIN_SECRET}
+    image: karate-test
+    build:
+      context: .
+      dockerfile: Dockerfile.test
     volumes:
-      - ./karate:/karate
+      - ./:/karate
       - ./results:/results
-    network_mode: "host"  # Esto permite acceder a los servicios que ya están corriendo
+    environment:
+      KARATE_OPTS: "-Dkarate.env=dev"
+      HASURA_ENDPOINT: http://localhost:8080/v1/graphql
+      HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+      FIREBASE_API_KEY: ${FIREBASE_API_KEY}
+    network_mode: "host"
+    command: java -jar /app/karate.jar /karate/features -o /results

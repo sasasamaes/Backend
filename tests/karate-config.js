@@ -17,7 +17,7 @@ function fn() {
 
   // Función de utilidad para leer archivos de consultas GraphQL
   const loadQuery = (filePath) => {
-    const file = karate.read('classpath:' + filePath);
+    const file = karate.read(filePath);
     return file.replace(/\s+/g, ' ').trim();
   };
 
@@ -30,19 +30,6 @@ function fn() {
       return { 'Authorization': 'Bearer ' + token };
     }
   };
-
-  // Helper para manejar respuestas GraphQL
-  config.handleResponse = function(response) {
-    if (response.errors) {
-      karate.log('GraphQL Error:', response.errors);
-      return false;
-    }
-    return true;
-  };
-
-  // Helper para cargar schemas
-  const schemas = karate.read('classpath:helpers/schemas.js');
-  config.schemas = schemas;
 
   return config;
 }

@@ -1,0 +1,15 @@
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+
+# Descargar Karate
+RUN apt-get update && apt-get install -y curl && \
+    curl -L https://github.com/karatelabs/karate/releases/download/v1.4.0/karate-1.4.0.jar -o /app/karate.jar
+
+# Crear directorios necesarios
+RUN mkdir -p /karate /results
+
+# Copiar archivos de configuración
+COPY karate-config.js /app/
+
+WORKDIR /karate
