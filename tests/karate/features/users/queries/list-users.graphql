@@ -1,0 +1,9 @@
+query ListUsers {
+  users(order_by: {created_at: desc}) {
+    id
+    email
+    name
+    last_seen
+    created_at
+  }
+}

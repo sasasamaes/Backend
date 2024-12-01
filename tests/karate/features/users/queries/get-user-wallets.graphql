@@ -1,0 +1,12 @@
+query GetUserWallets($userId: String!) {
+  user_wallets(
+    where: {user_id: {_eq: $userId}}
+    order_by: {is_primary: desc}
+  ) {
+    id
+    wallet_address
+    chain_type
+    is_primary
+    created_at
+  }
+}

@@ -1,0 +1,13 @@
+mutation UpdateUserWallet($userId: String!, $walletAddress: String!) {
+  update_user_wallets(
+    where: {user_id: {_eq: $userId}},
+    _set: {wallet_address: $walletAddress}
+  ) {
+    affected_rows
+    returning {
+      id
+      wallet_address
+      updated_at
+    }
+  }
+}
