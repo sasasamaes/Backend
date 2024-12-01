@@ -1,4 +1,4 @@
-mutation verifyFirebaseToken($token: String!) {
+mutation VerifyFirebaseToken($token: String!) {
   verifyFirebaseToken(token: $token) {
     valid
     user {

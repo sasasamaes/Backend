@@ -1,39 +1,55 @@
-Feature: Authentication Tests
+Feature: Firebase Authentication Tests
     Test Firebase authentication and token management
 
 Background:
     * url baseUrl
     * headers headers
+    * def loginQuery = read('queries/login-with-firebase.graphql')
+    * def testToken = 'valid-firebase-token'
+    * def expiredToken = 'expired-firebase-token'
+    * def invalidToken = 'invalid-token'
 
-@login
-Scenario: Successful Firebase Login
-    * def loginMutation = read('queries/login-with-firebase.graphql')
-    * def validToken = 'valid-firebase-token'
-    Given request { query: '#(loginMutation)', variables: { firebaseToken: '#(validToken)' } }
+@auth
+Scenario: Valid Firebase Token Authentication
+    Given request 
+    """
+    {
+        query: '#(loginQuery)',
+        variables: {
+            firebaseToken: '#(testToken)'
+        }
+    }
+    """
     When method POST
     Then status 200
     And match response.errors == '#notpresent'
     And match response.data.loginWithFirebase contains { accessToken: '#present', refreshToken: '#present' }
     * def authToken = response.data.loginWithFirebase.accessToken
 
-Scenario: Refresh Token
-    * def refreshTokenMutation = read('queries/refresh-token.graphql')
-    * def refreshToken = 'valid-refresh-token'
-    Given request { query: '#(refreshTokenMutation)', variables: { refreshToken: '#(refreshToken)' } }
+Scenario: Expired Token Rejection
+    Given request 
+    """
+    {
+        query: '#(loginQuery)',
+        variables: {
+            firebaseToken: '#(expiredToken)'
+        }
+    }
+    """
     When method POST
     Then status 200
-    And match response.data.refreshToken contains { accessToken: '#present', refreshToken: '#present' }
+    And match response.errors[0].message contains 'expired'
 
-Scenario: Check Token Status
-    * def checkTokenQuery = read('queries/check-token-status.graphql')
-    Given request { query: '#(checkTokenQuery)' }
+Scenario: Invalid Token Format
+    Given request 
+    """
+    {
+        query: '#(loginQuery)',
+        variables: {
+            firebaseToken: '#(invalidToken)'
+        }
+    }
+    """
     When method POST
     Then status 200
-    And match response.data.tokenStatus contains { isValid: '#boolean', expiresIn: '#number' }
-
-Scenario: Verify Session
-    * def sessionQuery = read('queries/verify-session.graphql')
-    Given request { query: '#(sessionQuery)' }
-    When method POST
-    Then status 200
-    And match response.data.currentSession contains { isValid: '#boolean', expiresAt: '#present' }
+    And match response.errors[0].message contains 'invalid'

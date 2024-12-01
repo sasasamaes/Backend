@@ -13,4 +13,4 @@ services:
       HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
       FIREBASE_API_KEY: ${FIREBASE_API_KEY}
     network_mode: "host"
-    command: java -jar /app/karate.jar /karate/features -o /results
+    command: java -jar /app/karate.jar /karate/karate/features -o /results
