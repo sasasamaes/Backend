@@ -4,7 +4,7 @@ Background:
     * url baseUrl
     * headers headers
     * def loginResult = call read('firebase-validation.feature@auth')
-    * def authToken = loginResult.response.data.login.token
+    * def authToken = loginResult.response.data.loginWithFirebase.token
 
 Scenario: Verify JWT Claims Structure
     * def jwtPayload = decodeJwt(authToken)

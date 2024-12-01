@@ -1,10 +1,10 @@
 mutation LoginWithFirebase($token: String!) {
-  loginWithFirebase(token: $token) {
-    token
-    user {
-      id
-      email
-      roles
+  loginWithFirebase(token: $token) {      # Mutation name and input
+    token                                 # JWT token returned
+    user {                               # User object returned
+      id                                 # User ID
+      email                              # User email
+      roles                              # User roles array
     }
   }
 }

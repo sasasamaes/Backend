@@ -79,7 +79,7 @@ where `enable_postgis` is the name of the migration. Please make sure to use des
 Then to apply them:
 
 ```shell
-hasura migrate apply --admin-secret myadminsecretkey
+cd ..
 ```
 
 If you wanna use the hasura web console and access it on `http://localhost:9695/`:

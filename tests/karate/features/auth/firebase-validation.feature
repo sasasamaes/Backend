@@ -10,13 +10,13 @@ Background:
 
 @auth
 Scenario: Valid Firebase Token Authentication
-    Given request 
+    Given request
     """
     {
       "query": "#(loginQuery)",
-      "variables": { 
-        "token": "#(testToken)" 
-      }
+      "variables": {
+         "token": "#(testToken)"
+       }
     }
     """
     When method POST
@@ -25,13 +25,13 @@ Scenario: Valid Firebase Token Authentication
     And match response.data.loginWithFirebase contains { token: '#present', user: '#present' }
 
 Scenario: Expired Token Rejection
-    Given request 
+    Given request
     """
     {
       "query": "#(loginQuery)",
-      "variables": { 
-        "token": "#(expiredToken)" 
-      }
+      "variables": {
+         "token": "#(expiredToken)"
+       }
     }
     """
     When method POST
@@ -39,13 +39,13 @@ Scenario: Expired Token Rejection
     And match response.errors[0].message contains 'expired'
 
 Scenario: Invalid Token Format
-    Given request 
+    Given request
     """
     {
       "query": "#(loginQuery)",
-      "variables": { 
-        "token": "#(invalidToken)" 
-      }
+      "variables": {
+         "token": "#(invalidToken)"
+       }
     }
     """
     When method POST

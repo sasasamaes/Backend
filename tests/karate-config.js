@@ -4,9 +4,9 @@ function fn() {
 
   // Configuración base
   const config = {
-    baseUrl: 'http://localhost:8080/v1/graphql',
-    adminSecret: karate.properties['HASURA_ADMIN_SECRET'] || '',
-    firebaseApiKey: karate.properties['FIREBASE_API_KEY'] || '',
+    baseUrl: 'http://localhost:9695/v1/graphql',
+    HASURA_ADMIN_SECRET: karate.properties['HASURA_ADMIN_SECRET'] || '',
+    FIREBASE_API_KEY: karate.properties['FIREBASE_API_KEY'] || '',
     firebaseAuthUrl: 'https://identitytoolkit.googleapis.com/v1/accounts',
     
     // Headers por defecto para GraphQL
